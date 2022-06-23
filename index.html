@@ -1,21 +1,27 @@
 <html> <head>
   
 <style>
+* { margin: 0; padding: 0;}
 table { width: 100%; background-color: #EAECEE;	}
-tbody:nth-child(odd){ background-color: #D5D000; }
-tbody:nth-child(even){ background-color:#D5D899; }
-th:nth-of-type(1) { float:left; font:message-box; padding:16px;}
-th:nth-of-type(2) { width: 10%; float:right; color: red;
-					        font: 12px Arial; padding: 15px 40px 0px 20px;}
-th:nth-of-type(3) {  cursor:pointer;}
-th:nth-of-type(4) {  cursor:pointer;}
-input, button { padding: 10px; margin:0px; }
+tbody:nth-child(odd){ background-color: #D5D000;}
+tbody:nth-child(even){ background-color:#D5D899;}
+th:nth-of-type(1) { float:left; font:message-box; 
+					padding:25px; font-size:18px;}
+th:nth-of-type(2) { width: 10%; float:right; color: blue;
+					font: 12px Arial; padding: 15px 40px 0px 20px;}
+th:nth-of-type(3) { cursor:pointer;}
+th:nth-of-type(4) { cursor:pointer;}
+input, button { padding: 10px; margin:0px;}
+
+
 </style>
   
 </head> <body>
 
 <input id="note" onkeydown="tik(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
+
 <button id="sil" onclick="tik()">Hepsini sil 🗑️</button> <BR> <BR>
+
 <table id="table">	</table>
 
 <script>
@@ -23,6 +29,7 @@ input, button { padding: 10px; margin:0px; }
 result();
 function result() {
 table.innerHTML = localStorage.getItem("DB")  }
+
 
 function tik() {
 
@@ -35,14 +42,17 @@ table.innerHTML += ` <th> ${note.value.replace(/<|>|'|"/g, '*')} </th>
                      
 localStorage.setItem("DB", table.innerHTML); note.value  = "";		}
 
+
 if (event.target.id == "sil") {  // LocalDatabase silme
 localStorage.removeItem("DB");
 result();		}
+
 
 if (event.target.innerHTML == " 🗑️ ") {  // tekli silme
 tag = event.path[1].parentElement.outerHTML;
 localStorage.setItem("DB", table.innerHTML.replace(tag, ""));
 result(); 		}
+
 
 if (event.target.innerHTML == " ✔️ ") { 
 tag = event.path[1].children[0].innerHTML;
