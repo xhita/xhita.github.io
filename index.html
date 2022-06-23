@@ -1,19 +1,16 @@
 <html> <head>
   
 <style>
-* { margin: 0; padding: 0;}
-table { width: 100%; background-color: #EAECEE;	}
+body { margin: 0; padding: 0; background-color: #EAECEE;}
+table { width: 100%; background-color: #EAECCC;	}
 tbody:nth-child(odd){ background-color: #D5D000;}
 tbody:nth-child(even){ background-color:#D5D899;}
 th:nth-of-type(1) { float:left; font:message-box; 
-					padding:26px; font-size:18px;}
-th:nth-of-type(2) { width: 10%; float:right; color: blue;
-					font: 12px Arial; padding: 15px 40px 0px 20px;}
-th:nth-of-type(3) { cursor:pointer;}
-th:nth-of-type(4) { cursor:pointer;}
-input, button { font:message-box; padding:17px; font-size:18px; margin:10px;}
-
-
+					padding:10px; font-size:18px;}
+th:nth-of-type(2) { float:right; color: blue; font: 12px Arial; padding:25px 5px 0px 101px;}
+th:nth-of-type(3) { cursor:pointer; width: 5%;}
+th:nth-of-type(4) { cursor:pointer; width: 5%;}
+input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
 </style>
   
 </head> <body>
@@ -54,12 +51,12 @@ localStorage.setItem("DB", table.innerHTML.replace(tag, ""));
 result(); 		}
 
 
-if (event.target.innerHTML == " ✔️ ") { 
+if (event.target.innerHTML == " ✔️ ") { // tekli isaretleme
 tag = event.path[1].children[0].innerHTML;
 tarih = event.path[1].children[1].innerHTML;
 onay = event.path[1].children[2].innerHTML;
 komple = ` <th> <s>${tag}</s> </th>
-		   <th> <s>${tarih}</s> ${new Date().toLocaleString()} </th>
+		   <th> <s>${tarih}</s> <b>${new Date().toLocaleString()}</b> </th>
            <th> 🆗 </th> 
            <th onclick="tik(event)"> 🗑️ </th> `
 localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
