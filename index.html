@@ -24,27 +24,32 @@ function result() {
 table.innerHTML = localStorage.getItem("DB")  }
 
 function tik() {
+
 if (event.key == "Enter"  && note.value) {  // yazdirma + kaydetme islemi
 
 table.innerHTML += ` <th><h3> ${note.value.replace(/<|>|'|"/g, '*')}</h3> 
 		    		  ${new Date().toLocaleString()} </th>
                      <th onclick="tik(event)"> ✔️ </th> 
                      <th onclick="tik(event)"> 🗑️ </th> `
+                     
 localStorage.setItem("DB", table.innerHTML); note.value  = "";		}
+
 
 if (event.target.id == "sil") {  // LocalDatabase silme
 localStorage.removeItem("DB");
 result();		}
+
 
 if (event.target.innerHTML == " 🗑️ ") {  // tekli silme
 tag = event.path[1].parentElement.outerHTML;
 localStorage.setItem("DB", table.innerHTML.replace(tag, ""));
 result(); 		}
 
+
 if (event.target.innerHTML == " ✔️ ") { // tekli isaretleme
 tag = event.path[1].children[0].innerHTML;
-komple = ` <th> <s>${tag}</s> 
-	  	   <b> ${new Date().toLocaleString()} </b></th>
+komple = ` <th> <s>${tag}</s> &nbsp;
+	  	   <b> ${new Date().toLocaleString()} </b> </th>
            <th> 🆗 </th> 
            <th onclick="tik(event)"> 🗑️ </th> `
 localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
