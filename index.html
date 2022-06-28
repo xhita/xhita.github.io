@@ -51,6 +51,8 @@ localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+k
 result(); 		}
   
 if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
+if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; else dato.innerHTML = "Eskiler";
+  
 }
 </script>
 </body> </html>
