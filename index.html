@@ -1,11 +1,12 @@
+
 <html> <head>
 <style>
 body { margin: 0; padding: 0; background-color:#dddddd;}
-table, th{  text-align: left; width: 100%; border: 1px solid black;}
+table, th{ text-align: left; width: 100%; padding:1px 10px 0px 10px;}
 tbody:nth-child(odd){ background-color:#ECF0F1; }
 tbody:nth-child(even){ background-color:#D5DBDB; }
-th:nth-of-type(1) { font:message-box; padding:5px 0px 1px 10px; font-size:16px;}
-th:nth-of-type(1n+2) { cursor:pointer;}
+th:nth-of-type(1) { font:message-box; font-size:16px;}
+th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border: double;}
 tr:hover {background-color:#ABB2B9;}
 input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
 .table{ display: flex; flex-direction:column-reverse; width: 100%;}
@@ -31,8 +32,8 @@ function tik() {
 
 if (event.key == "Enter"  && note.value) {  // yazdirma + kaydetme islemi
 
-table.innerHTML += ` <th><h3> ${note.value.replace(/<|>|'|"/g, '*')}</h3> 
-		    		  ${new Date().toLocaleString()} </th>
+table.innerHTML += ` <th> <h3> &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> 
+		    	           ${new Date().toLocaleString()} </th>
                      <th onclick="tik(event)"> ✔️ </th> 
                      <th onclick="tik(event)"> 🗑️ </th> `                    
 localStorage.setItem("DB", table.innerHTML); note.value  = "";
@@ -49,7 +50,7 @@ result(); 		}
 
 if (event.target.innerHTML == " ✔️ ") { // tekli isaretleme
 tag = event.path[1].children[0].innerHTML;
-komple = ` <th> <s>${tag}</s> &nbsp; <b> ${new Date().toLocaleString()} </b> </th>
+komple = ` <th> <s> ${tag}</s> &nbsp; <b> ${new Date().toLocaleString()} </b> </th>
            <th> 🆗 </th> <th onclick="tik(event)"> 🗑️ </th> `
 localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
 result(); 		}
