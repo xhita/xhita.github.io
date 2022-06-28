@@ -14,11 +14,15 @@ input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
 </head> <body>
 
 <input id="note" onkeydown="tik(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> <button id="sil" onclick="tik()">Hepsini sil 🗑️</button>
-<button onclick="tik()" id="dato">Eskiler</button>
+<button onclick="reverse()" id="dato">Eskiler</button>
   
 <table id="table" class="table"> </table>
 
 <script>
+function reverse() {
+if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
+if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; else dato.innerHTML = "Eskiler";
+}
 result();
 function result() {
 table.innerHTML = localStorage.getItem("DB")  
@@ -49,10 +53,6 @@ komple = ` <th> <s>${tag}</s> &nbsp; <b> ${new Date().toLocaleString()} </b> </t
            <th> 🆗 </th> <th onclick="tik(event)"> 🗑️ </th> `
 localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
 result(); 		}
-  
-if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
-if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; else dato.innerHTML = "Eskiler";
-  
 }
 </script>
 </body> </html>
