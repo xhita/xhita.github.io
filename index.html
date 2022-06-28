@@ -1,4 +1,3 @@
-
 <html> <head>
 <style>
 body { margin: 0; padding: 0; background-color:#dddddd;}
@@ -20,24 +19,25 @@ input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
 <table id="table" class="table"> </table>
 
 <script>
-function reverse() {
-if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
-if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; else dato.innerHTML = "Eskiler";
-}
 result();
 function result() {
-table.innerHTML = localStorage.getItem("DB")  
- }
+table.innerHTML = localStorage.getItem("DB")  	}
+ 
+function reverse() {
+if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
+if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; 
+else dato.innerHTML = "Eskiler";		}
+
 function tik() {
 
 if (event.key == "Enter"  && note.value) {  // yazdirma + kaydetme islemi
 
 table.innerHTML += ` <th> <h3> &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> 
-		    	           ${new Date().toLocaleString()} </th>
+		    	     ${new Date().toLocaleString()} </th>
                      <th onclick="tik(event)"> ✔️ </th> 
                      <th onclick="tik(event)"> 🗑️ </th> `                    
 localStorage.setItem("DB", table.innerHTML); note.value  = "";
-result(); }
+result(); 		}
 
 if (event.target.id == "sil") {  // LocalDatabase silme
 localStorage.removeItem("DB");
