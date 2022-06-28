@@ -1,29 +1,28 @@
 <html> <head>
-  
 <style>
-body { margin: 0; padding: 0; background-color:#ABB;}
+body { margin: 0; padding: 0; background-color:#dddddd;}
 table, th{  text-align: left; width: 100%; border: 1px solid black;}
-tbody:nth-child(odd){ left; background-color:#ECF0F1; }
+tbody:nth-child(odd){ background-color:#ECF0F1; }
 tbody:nth-child(even){ background-color:#D5DBDB; }
 th:nth-of-type(1) { font:message-box; padding:5px 0px 1px 10px; font-size:16px;}
 th:nth-of-type(1n+2) { cursor:pointer;}
 tr:hover {background-color:#ABB2B9;}
 input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
-#table{ display: flex; flex-direction:column-reverse; width: 100%;}
+.table{ display: flex; flex-direction:column-reverse; width: 100%;}
+.dato{ display: flex; flex-direction:column; width: 100%;}
 </style>
 </head> <body>
 
-<input id="note" onkeydown="tik(event)" placeholder="Yaz" autocomplete="off" autofocus="" required>  <button id="sil" onclick="tik()">Hepsini sil 🗑️</button>
-
-<table id="table"> </table>
+<input id="note" onkeydown="tik(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> <button id="sil" onclick="tik()">Hepsini sil 🗑️</button>
+<button onclick="tik()" id="dato">Eskiler</button>
+  
+<table id="table" class="table"> </table>
 
 <script>
-
 result();
 function result() {
-
-table.innerHTML = localStorage.getItem("DB")  }
-
+table.innerHTML = localStorage.getItem("DB")  
+ }
 function tik() {
 
 if (event.key == "Enter"  && note.value) {  // yazdirma + kaydetme islemi
@@ -50,7 +49,8 @@ komple = ` <th> <s>${tag}</s> &nbsp; <b> ${new Date().toLocaleString()} </b> </t
            <th> 🆗 </th> <th onclick="tik(event)"> 🗑️ </th> `
 localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
 result(); 		}
-
+  
+if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
 }
 </script>
 </body> </html>
