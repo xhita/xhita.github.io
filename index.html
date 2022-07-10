@@ -9,7 +9,7 @@ th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border:1px solid;}
 input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
 .table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
 </style>
-</head> <body>
+</head> <body onkeydown="delAlt(event)">
 <input id="note" onkeydown="kayit(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
 
 <table id="table" class="table"> </table>
@@ -46,8 +46,8 @@ localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
 function delAlt() {
+if (event.key == "Delete")
 localStorage.removeItem("DB");	result();	
 }
-
 </script>
 </body> </html>
