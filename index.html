@@ -25,8 +25,8 @@ table.innerHTML = localStorage.getItem("DB");
 function kayit() {
 
 if (event.key == "Enter"  && note.value) { 
-table.innerHTML += ` <th> <h3> &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> 
-		    	     ${tarih} </th>
+table.innerHTML += ` <th title="Editle ve Enterle"> 
+					 <h3 onkeydown="edit(event)" contenteditable="true"> 									 &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> ${tarih} </th>
                      <th onclick="merk(event)"> ✔️ </th> 
                      <th onclick="del(event)"> 🗑️ </th> `  
 localStorage.setItem("DB", table.innerHTML);	result();	
@@ -45,9 +45,14 @@ event.path[1].outerHTML = null;
 localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
+function edit() {
+if (event.key == "Enter"){
+localStorage.setItem("DB", table.innerHTML); 	result(); }
+}
+
 function delAlt() {
-if (event.key == "Delete")
-localStorage.removeItem("DB");	result();	
+if (event.key == "Delete"){
+localStorage.removeItem("DB");	result();	}
 }
 </script>
 </body> </html>
