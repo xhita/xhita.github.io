@@ -26,7 +26,7 @@ function kayit() {
 
 if (event.key == "Enter"  && note.value) { 
 table.innerHTML += ` <th title="Editle ve Enterle"> 
-					 <h3 onkeydown="edit(event)" contenteditable="true"> 									 &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> ${tarih} </th>
+		     <h3 onkeydown="edit(event)" contenteditable="true"> &nbsp; ${note.value.replace(/<|>|'|"/g, '*')}</h3> ${tarih} </th>
                      <th onclick="merk(event)"> ✔️ </th> 
                      <th onclick="del(event)"> 🗑️ </th> `  
 localStorage.setItem("DB", table.innerHTML);	result();	
