@@ -1,59 +1,53 @@
 <html> <head>
 <style>
 body { margin: 0; padding: 0; background-color:#dddddd;}
-table, th{ text-align: left; width: 100%; padding:1px 10px 0px 10px;}
+table, th{ text-align: left; width: 100%; padding:0px 10px 0px 10px;}
 tbody:nth-child(odd){ background-color:#ECF0F1; }
-tbody:nth-child(even){ background-color:#D5DBDB; }
-th:nth-of-type(1) { font:message-box; font-size:16px;}
-th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border: double;}
-tr:hover {background-color:#ABB2B9;}
+tbody:nth-child(even){ background-color:#BDC3C7; }
+th:nth-of-type(1) { border:1px solid; font:message-box; padding:6px 0px 1px 6px;}
+th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border:1px solid;}
 input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
-.table{ display: flex; flex-direction:column-reverse; width: 100%;}
-.dato{ display: flex; flex-direction:column; width: 100%;}
+.table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
 </style>
 </head> <body>
+<input id="note" onkeydown="kayit(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
 
-<input id="note" onkeydown="tik(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> <button id="sil" onclick="tik()">Hepsini sil 🗑️</button>
-<button onclick="reverse()" id="dato">Eskiler</button>
-  
 <table id="table" class="table"> </table>
 
 <script>
+tarih = new Date().toLocaleString().replaceAll(".", "/");
+
 result();
 function result() {
-table.innerHTML = localStorage.getItem("DB")  	}
- 
-function reverse() {
-if (event.target.id == "dato") table.classList.toggle("dato"); // Eskileri göster
-if (dato.innerHTML == "Eskiler") dato.innerHTML = "Yeniler"; 
-else dato.innerHTML = "Eskiler";		}
-
-function tik() {
-
-if (event.key == "Enter"  && note.value) {  // yazdirma + kaydetme islemi
-
-table.innerHTML += ` <th> <h3> &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> 
-		    	     ${new Date().toLocaleString()} </th>
-                     <th onclick="tik(event)"> ✔️ </th> 
-                     <th onclick="tik(event)"> 🗑️ </th> `                    
-localStorage.setItem("DB", table.innerHTML); note.value  = "";
-result(); 		}
-
-if (event.target.id == "sil") {  // LocalDatabase silme
-localStorage.removeItem("DB");
-result();		}
-
-if (event.target.innerHTML == " 🗑️ ") {  // tekli silme
-tag = event.path[1].parentElement.outerHTML;
-localStorage.setItem("DB", table.innerHTML.replace(tag, ""));
-result(); 		}
-
-if (event.target.innerHTML == " ✔️ ") { // tekli isaretleme
-tag = event.path[1].children[0].innerHTML;
-komple = ` <th> <s> ${tag}</s> &nbsp; <b> ${new Date().toLocaleString()} </b> </th>
-           <th> 🆗 </th> <th onclick="tik(event)"> 🗑️ </th> `
-localStorage.setItem("DB", table.innerHTML.replace(event.path[1].innerHTML, ""+komple+""));
-result(); 		}
+table.innerHTML = localStorage.getItem("DB");
 }
+
+function kayit() {
+
+if (event.key == "Enter"  && note.value) { 
+table.innerHTML += ` <th> <h3> &nbsp;${note.value.replace(/<|>|'|"/g, '*')}</h3> 
+		    	     ${tarih} </th>
+                     <th onclick="merk(event)"> ✔️ </th> 
+                     <th onclick="del(event)"> 🗑️ </th> `  
+localStorage.setItem("DB", table.innerHTML);	result();	
+note.value = "";	}
+}
+ 
+function merk() {
+event.path[1].cells[0].innerHTML = `<s>${event.path[1].cells[0].innerHTML}</s>
+									&nbsp; <b> ${tarih} </b>`;
+event.path[1].cells[1].outerHTML = `<th> 🆗 </th>`;
+localStorage.setItem("DB", table.innerHTML); 	result();
+}
+
+function del() {
+event.path[1].outerHTML = null;
+localStorage.setItem("DB", table.innerHTML); 	result();
+}
+
+function delAlt() {
+localStorage.removeItem("DB");	result();	
+}
+
 </script>
 </body> </html>
