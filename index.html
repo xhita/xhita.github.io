@@ -2,18 +2,19 @@
 <style>
 body { margin: 0; padding: 0; background-color:#dddddd;}
 table, th{ text-align: left; width: 100%; padding:0px 10px 0px 10px;}
-tbody:nth-child(odd){ background-color:#ECF0F1; }
-tbody:nth-child(even){ background-color:#BDC3C7; }
+tbody:nth-child(odd){ background-color:#ECF0F1; color:#641E16 }
+tbody:nth-child(even){ background-color:#BDC3C7;  color:#641E16}
 th:nth-of-type(1) { border:1px solid; font:message-box; padding:6px 0px 1px 6px;}
 th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border:1px solid;}
-input, button { font:message-box; padding:15px; font-size:16px; margin:10px;}
+th > h3[contenteditable="true"] { color: #B03A2E; }
+input, button { border-style:outset;font:message-box; padding:15px; font-size:16px; margin:10px;}
 .table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
 </style>
 </head> <body onkeydown="delAlt(event)">
 <input id="note" onkeydown="kayit(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
 
-<table id="table" class="table"> </table>
-
+<table id="table" class="table"></table>
+<p id="demo">
 <script>
 tarih = new Date().toLocaleString().replaceAll(".", "/");
 
@@ -23,14 +24,15 @@ table.innerHTML = localStorage.getItem("DB");
 }
 
 function kayit() {
-
+if (note.value == "Del") {   return delAlt();  }
 if (event.key == "Enter"  && note.value) { 
-table.innerHTML += ` <th title="Editle ve Enterle"> 
-		     <h3 onkeydown="edit(event)" contenteditable="true"> &nbsp; ${note.value.replace(/<|>|'|"/g, '*')}</h3> ${tarih} </th>
-                     <th onclick="merk(event)"> ✔️ </th> 
-                     <th onclick="del(event)"> 🗑️ </th> `  
-localStorage.setItem("DB", table.innerHTML);	result();	
-note.value = "";	}
+
+table.innerHTML += `<th><h3 title="Editle ve Enterle" onkeydown="edit(event)"
+		    contenteditable="true">${note.value.replace(/<|>|'|"/g, '*')}
+                    </h3> ${tarih} </th> <th onclick="merk(event)"> ✔️ </th> 
+                    <th onclick="del(event)"> 🗑️ </th> `  
+localStorage.setItem("DB", table.innerHTML);	
+note.value = "";	result();   }
 }
  
 function merk() {
@@ -47,12 +49,14 @@ localStorage.setItem("DB", table.innerHTML); 	result();
 
 function edit() {
 if (event.key == "Enter"){
+event.path[0].outerHTML = `<h3> ${event.target.innerHTML} </h3> EDITLENDI -`;
 localStorage.setItem("DB", table.innerHTML); 	result(); }
 }
 
 function delAlt() {
-if (event.key == "Delete"){
-localStorage.removeItem("DB");	result();	}
+if (event.key == "Delete" || event.target.value == "Del"){
+localStorage.removeItem("DB");	
+note.value = ""; 	result(); }
 }
 </script>
 </body> </html>
