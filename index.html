@@ -11,7 +11,6 @@ input, button { border-style:outset;font:message-box; padding:15px; font-size:16
 .table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
 </style>
 </head> <body onkeydown="delAlt(event)">
-	<
 <input id="note" onkeydown="kayit(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
 
 <table id="table" class="table"></table>
@@ -25,15 +24,15 @@ table.innerHTML = localStorage.getItem("DB");
 }
 
 function kayit() {
-if (note.value == "Del") {	return delAlt();  }
+if (note.value == "Del") {   return delAlt();  }
 if (event.key == "Enter"  && note.value) { 
 
 table.innerHTML += `<th><h3 title="Editle ve Enterle" onkeydown="edit(event)"
-				     	contenteditable="true">${note.value.replace(/<|>|'|"/g, '*')}
+		    contenteditable="true">${note.value.replace(/<|>|'|"/g, '*')}
                     </h3> ${tarih} </th> <th onclick="merk(event)"> ✔️ </th> 
                     <th onclick="del(event)"> 🗑️ </th> `  
 localStorage.setItem("DB", table.innerHTML);	
-note.value = "";	result();	}
+note.value = "";	result();   }
 }
  
 function merk() {
@@ -44,7 +43,7 @@ localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
 function del() {
-event.target.parentElement.remove();
+console.log(event.path[2].remove());
 localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
@@ -57,7 +56,7 @@ localStorage.setItem("DB", table.innerHTML); 	result(); }
 function delAlt() {
 if (event.key == "Delete" || event.target.value == "Del"){
 localStorage.removeItem("DB");	
-note.value = ""; 	result();	}
+note.value = ""; 	result(); }
 }
 </script>
 </body> </html>
