@@ -1,15 +1,5 @@
 <html> <head>
-<style>
-body { margin: 0; padding: 0; background-color:#dddddd;}
-table, th{ text-align: left; width: 100%; padding:0px 10px 0px 10px;}
-tbody:nth-child(odd){ background-color:#ECF0F1; color:#641E16 }
-tbody:nth-child(even){ background-color:#BDC3C7;  color:#641E16}
-th:nth-of-type(1) { border:1px solid; font:message-box; padding:6px 0px 1px 6px;}
-th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border:1px solid;}
-th > h3[contenteditable="true"] { color: #B03A2E; }
-input, button { border-style:outset;font:message-box; padding:15px; font-size:16px; margin:10px;}
-.table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
-</style>
+<link rel="stylesheet" href="xhita.github.io/styles.css">
 </head> <body onkeydown="delAlt(event)">
 <input id="note" onkeydown="kayit(event)" placeholder="Yaz" autocomplete="off" autofocus="" required> 
 
@@ -24,15 +14,15 @@ table.innerHTML = localStorage.getItem("DB");
 }
 
 function kayit() {
-if (note.value == "Del") {   return delAlt();  }
+if (note.value == "Del") {	return delAlt();  }
 if (event.key == "Enter"  && note.value) { 
 
 table.innerHTML += `<th><h3 title="Editle ve Enterle" onkeydown="edit(event)"
-		    contenteditable="true">${note.value.replace(/<|>|'|"/g, '*')}
+				     	contenteditable="true">${note.value.replace(/<|>|'|"/g, '*')}
                     </h3> ${tarih} </th> <th onclick="merk(event)"> ✔️ </th> 
                     <th onclick="del(event)"> 🗑️ </th> `  
 localStorage.setItem("DB", table.innerHTML);	
-note.value = "";	result();   }
+note.value = "";	result();	}
 }
  
 function merk() {
@@ -43,7 +33,7 @@ localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
 function del() {
-event.path[1].outerHTML = null;
+event.target.parentElement.remove();
 localStorage.setItem("DB", table.innerHTML); 	result();
 }
 
@@ -56,7 +46,7 @@ localStorage.setItem("DB", table.innerHTML); 	result(); }
 function delAlt() {
 if (event.key == "Delete" || event.target.value == "Del"){
 localStorage.removeItem("DB");	
-note.value = ""; 	result(); }
+note.value = ""; 	result();	}
 }
 </script>
 </body> </html>
