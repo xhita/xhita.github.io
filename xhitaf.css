@@ -1,0 +1,11 @@
+<style>
+body { margin: 0; padding: 0; background-color:#dddddd;}
+table, th{ text-align: left; width: 100%; padding:0px 10px 0px 10px;}
+tbody:nth-child(odd){ background-color:#ECF0F1; color:#641E16 }
+tbody:nth-child(even){ background-color:#BDC3C7;  color:#641E16}
+th:nth-of-type(1) { border:1px solid; font:message-box; padding:6px 0px 1px 6px;}
+th:nth-of-type(1n+2) { padding:0px; cursor:pointer; border:1px solid;}
+th > h3[contenteditable="true"] { color: #B03A2E; }
+input, button { border-style:outset;font:message-box; padding:15px; font-size:16px; margin:10px;}
+.table{ display: flex; flex-direction:column-reverse; width: 100%;  border-collapse: collapse;}
+</style>
